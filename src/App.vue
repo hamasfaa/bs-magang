@@ -1,10 +1,5 @@
 <template>
-  <div>
-    <input type="text" v-model="message" />
-    <button @click="sendMessage">Send</button>
-
-    <p>Received message: {{ receivedMessage }}</p>
-  </div>
+  <router-view></router-view>
 </template>
 
 <script>
@@ -19,29 +14,8 @@ export default {
     };
   },
 
-  data() {
-    return {
-      message: "",
-    };
-  },
-  computed: {
-    receivedMessage() {
-      return this.robotStore.receivedMessage;
-    },
-  },
-  methods: {
-    sendMessage() {
-      this.robotStore.updateMessage(this.message);
-      this.robotStore.sendMessage();
-    },
-  },
   created() {
     this.robotStore.initializeROS();
-  },
-  watch: {
-    message(newValue) {
-      this.robotStore.updateMessage(newValue);
-    },
   },
 };
 </script>

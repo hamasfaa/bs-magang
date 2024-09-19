@@ -7,7 +7,7 @@ export const useRobotStore = defineStore("robot", {
         ros: null,
         bs2pc: null,
         pc2bs: null,
-        message: "",
+        message: 0,
         receivedMessage: "",
     }),
 
@@ -40,7 +40,7 @@ export const useRobotStore = defineStore("robot", {
             this.bs2pc = new ROSLIB.Topic({
                 ros: this.ros,
                 name: "/bs2pc",
-                messageType: "std_msgs/String",
+                messageType: "tes/BS2PC",
             });
 
             this.pc2bs.subscribe((message) => {
@@ -52,10 +52,10 @@ export const useRobotStore = defineStore("robot", {
         sendMessage() {
             if (this.bs2pc) {
                 const message = new ROSLIB.Message({
-                    data: this.message
+                    status: this.message
                 });
                 this.bs2pc.publish(message);
-                console.log('Sending message on ' + this.bs2pc.name + ': ' + message.data);
+                console.log('Sending message on ' + this.bs2pc.name + ': ' + message.status);
             }
         },
 
