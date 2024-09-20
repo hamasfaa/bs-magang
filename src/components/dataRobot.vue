@@ -6,6 +6,11 @@
     <button @click="sendMessage(4)">4</button>
 
     <p>Received message: {{ receivedMessage }}</p>
+    <div
+      v-if="robotStore.connected"
+      class="w-12 h-12 bg-green-500 rounded-full"
+    ></div>
+    <div v-else class="w-12 h-12 bg-red-500 rounded-full"></div>
   </div>
 </template>
 <script>
@@ -28,6 +33,9 @@ export default {
   computed: {
     receivedMessage() {
       return this.robotStore.receivedMessage;
+    },
+    connected() {
+      return this.robotStore.connected;
     },
   },
   methods: {

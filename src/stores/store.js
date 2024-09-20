@@ -15,6 +15,7 @@ export const useRobotStore = defineStore("robot", {
         x: 0,
         y: 0,
         receivedMessage: "",
+        connected: false,
     }),
 
     actions: {
@@ -25,14 +26,17 @@ export const useRobotStore = defineStore("robot", {
 
             this.ros.on("connection", () => {
                 console.log("Connected to websocket server.");
+                this.connected = true;
             });
 
             this.ros.on("error", (error) => {
                 console.log("Error connecting to websocket server: ", error);
+                this.connected = false;
             });
 
             this.ros.on("close", () => {
                 console.log("Connection to websocket server closed.");
+                this.connected = false
             });
 
             //buat subscribe
