@@ -16,11 +16,19 @@ import LAPANGAN from "@/assets/Lapangan.png";
 import ROBOT from "@/assets/Model_Robot/blue.png";
 import TARGET from "@/assets/red_dot-1.png";
 import { Animation } from "konva";
+import { useRobotStore } from "../stores/store";
 
 let panjangLapangan = 1016;
 let tinggiLapangan = 716;
 
 export default {
+  setup() {
+    const robotStore = useRobotStore();
+
+    return {
+      robotStore,
+    };
+  },
   data() {
     return {
       LAPANGAN,
@@ -105,6 +113,8 @@ export default {
     moveTarget(e) {
       this.TargetConfig.x = e.evt.layerX;
       this.TargetConfig.y = e.evt.layerY;
+
+      this.robotStore.updateKoordinat(this.TargetConfig.x, this.TargetConfig.y);
     },
   },
   mounted() {

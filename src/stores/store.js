@@ -5,9 +5,15 @@ import ROSLIB from 'roslib';
 export const useRobotStore = defineStore("robot", {
     state: () => ({
         ros: null,
-        bs2pc: null,
+        bs2pc: {
+            status: 0,
+            tujuan_x: 0,
+            tujuan_y: 0,
+        },
         pc2bs: null,
         message: 0,
+        x: 0,
+        y: 0,
         receivedMessage: "",
     }),
 
@@ -51,16 +57,26 @@ export const useRobotStore = defineStore("robot", {
 
         sendMessage() {
             if (this.bs2pc) {
+                this.bs2pc.status = this.message;
+                this.bs2pc.tujuan_x = this.x;
+                this.bs2pc.tujuan_y = this.y;
                 const message = new ROSLIB.Message({
-                    status: this.message
+                    status: this.bs2pc.status,
+                    tujuan_x: this.bs2pc.tujuan_x,
+                    tujuan_y: this.bs2pc.tujuan_y,
                 });
                 this.bs2pc.publish(message);
-                console.log('Sending message on ' + this.bs2pc.name + ': ' + message.status);
+                console.log('Sending message on ' + this.bs2pc.name + ': ' + "STATUS" + message.status + "KOORDINAT" + message.tujuan_x + "," + message.tujuan_y);
             }
         },
 
         updateMessage(newMessage) {
             this.message = newMessage
+        },
+
+        updateKoordinat(newX, newY) {
+            this.x = newX
+            this.y = newY
         }
     },
 });
