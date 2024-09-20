@@ -1,5 +1,5 @@
 <template>
-  <v-stage ref="stage" :config="stageSize">
+  <v-stage ref="stage" :config="stageSize" @click="moveTarget">
     <v-layer ref="layer">
       <v-image
         :config="{
@@ -7,12 +7,14 @@
         }"
       />
       <v-image :config="RobotConfig" />
+      <v-image :config="TargetConfig" />
     </v-layer>
   </v-stage>
 </template>
 <script>
 import LAPANGAN from "@/assets/Lapangan.png";
 import ROBOT from "@/assets/Model_Robot/blue.png";
+import TARGET from "@/assets/red_dot-1.png";
 import { Animation } from "konva";
 
 let panjangLapangan = 1016;
@@ -23,6 +25,7 @@ export default {
     return {
       LAPANGAN,
       ROBOT,
+      TARGET,
       stageSize: {
         width: panjangLapangan,
         height: tinggiLapangan,
@@ -41,6 +44,18 @@ export default {
         },
         // stroke: "red",
       },
+      TargetConfig: {
+        image: null,
+        x: 60,
+        y: 60,
+        width: 50,
+        height: 50,
+        offset: {
+          x: 25,
+          y: 25,
+        },
+        // stroke: "red",
+      },
     };
   },
   created() {
@@ -53,6 +68,10 @@ export default {
     const robotImage = new window.Image();
     robotImage.src = ROBOT;
     this.RobotConfig.image = robotImage;
+
+    const targetImage = new window.Image();
+    targetImage.src = TARGET;
+    this.TargetConfig.image = targetImage;
   },
   methods: {
     gerak(e) {
@@ -82,6 +101,10 @@ export default {
         default:
           break;
       }
+    },
+    moveTarget(e) {
+      this.TargetConfig.x = e.evt.layerX;
+      this.TargetConfig.y = e.evt.layerY;
     },
   },
   mounted() {
