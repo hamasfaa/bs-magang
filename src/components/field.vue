@@ -7,7 +7,7 @@
         }"
       />
       <v-image :config="RobotConfig" />
-      <v-image :config="TargetConfig" />
+      <v-image v-if="targetVisible" :config="TargetConfig" />
     </v-layer>
   </v-stage>
 </template>
@@ -45,12 +45,10 @@ export default {
         x: 60,
         y: 60,
         rotation: 0,
-        //get the robot to the right cordinate
         offset: {
           x: 40,
           y: 40,
         },
-        // stroke: "red",
       },
       TargetConfig: {
         image: null,
@@ -62,9 +60,19 @@ export default {
           x: 25,
           y: 25,
         },
-        // stroke: "red",
       },
     };
+  },
+  computed: {
+    targetVisible() {
+      if (this.robotStore.message === 3) {
+        this.TargetConfig.x = 60;
+        this.TargetConfig.y = 60;
+        this.robotStore.updateKoordinat(60, 60);
+        return true;
+      }
+      return false;
+    },
   },
   created() {
     const image = new window.Image();
@@ -148,3 +156,5 @@ export default {
   },
 };
 </script>
+
+<style lang=""></style>

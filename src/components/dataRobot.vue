@@ -1,16 +1,42 @@
 <template lang="">
-  <div>
-    <button @click="sendMessage(1)">1</button>
-    <button @click="sendMessage(2)">2</button>
-    <button @click="sendMessage(3)">3</button>
-    <button @click="sendMessage(4)">4</button>
+  <div class="flex flex-col items-center space-y-6">
+    <div class="grid grid-cols-2 gap-4">
+      <button
+        v-for="num in [1, 2, 3, 4]"
+        :key="num"
+        @click="selectMessage(num)"
+        :class="{
+          'w-16 h-16 text-white rounded-full shadow-lg transition-transform duration-300 focus:outline-none': true,
+          'bg-blue-500 hover:scale-105 hover:bg-blue-600 active:bg-blue-700':
+            selectedMessage !== num,
+          'bg-yellow-500': selectedMessage === num,
+        }"
+      >
+        {{ num }}
+      </button>
+    </div>
 
-    <p>Received message: {{ receivedMessage }}</p>
+    <button
+      @click="sendMessage"
+      class="w-32 h-12 bg-green-500 text-white rounded-full shadow-lg transition-transform duration-300 hover:scale-105 hover:bg-green-600 focus:outline-none active:bg-green-700"
+    >
+      SEND
+    </button>
+
+    <p class="text-lg font-semibold">Received message: {{ receivedMessage }}</p>
+
     <div
       v-if="robotStore.connected"
-      class="w-12 h-12 bg-green-500 rounded-full"
-    ></div>
-    <div v-else class="w-12 h-12 bg-red-500 rounded-full"></div>
+      class="w-16 h-16 bg-green-500 rounded-full shadow-lg flex items-center justify-center transition-all duration-300 ease-in-out"
+    >
+      <span class="text-white text-lg">Online</span>
+    </div>
+    <div
+      v-else
+      class="w-16 h-16 bg-red-500 rounded-full shadow-lg flex items-center justify-center transition-all duration-300 ease-in-out"
+    >
+      <span class="text-white text-lg">Offline</span>
+    </div>
   </div>
 </template>
 <script>
@@ -27,7 +53,7 @@ export default {
 
   data() {
     return {
-      message: 0,
+      selectedMessage: null,
     };
   },
   computed: {
@@ -39,14 +65,14 @@ export default {
     },
   },
   methods: {
-    sendMessage(message) {
-      this.robotStore.updateMessage(message);
-      this.robotStore.sendMessage();
+    selectMessage(message) {
+      this.selectedMessage = message;
     },
-  },
-  watch: {
-    message(newValue) {
-      this.robotStore.updateMessage(newValue);
+    sendMessage() {
+      if (this.selectedMessage !== null) {
+        this.robotStore.updateMessage(this.selectedMessage);
+        this.robotStore.sendMessage();
+      }
     },
   },
 };
