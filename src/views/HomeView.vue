@@ -5,8 +5,8 @@ import dataRobot from "@/components/dataRobot.vue";
 
 <template>
   <main>
-    <div class="flex">
-      <Field />
+    <div class="flex flex-col md:flex-row">
+      <Field class="py-5" />
       <dataRobot />
     </div>
   </main>

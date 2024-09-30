@@ -5,12 +5,21 @@ import ROSLIB from 'roslib';
 export const useRobotStore = defineStore("robot", {
     state: () => ({
         ros: null,
+        pc2bs: {
+            pos_x: 0,
+            pos_y: 0,
+            pos_theta: 0,
+            v_x: 0,
+            v_y: 0,
+            v_theta: 0,
+            bola_x: 0,
+            bola_y: 0,
+        },
         bs2pc: {
             status: 0,
             tujuan_x: 0,
             tujuan_y: 0,
         },
-        pc2bs: null,
         message: 0,
         x: 0,
         y: 0,
@@ -43,7 +52,7 @@ export const useRobotStore = defineStore("robot", {
             this.pc2bs = new ROSLIB.Topic({
                 ros: this.ros,
                 name: "/pc2bs",
-                messageType: "std_msgs/String",
+                messageType: "pc2bs/Msg",
             });
 
             // buat publish
@@ -54,8 +63,15 @@ export const useRobotStore = defineStore("robot", {
             });
 
             this.pc2bs.subscribe((message) => {
-                this.receivedMessage = message.data;
-                console.log('Received message on ' + this.pc2bs.name + ': ' + message.data);
+                this.pc2bs.pos_x = message.pos_x;
+                this.pc2bs.pos_y = message.pos_y;
+                this.pc2bs.pos_theta = message.pos_theta;
+                this.pc2bs.v_x = message.v_x;
+                this.pc2bs.v_y = message.v_y;
+                this.pc2bs.v_theta = message.v_theta;
+                this.pc2bs.bola_x = message.bola_x;
+                this.pc2bs.bola_y = message.bola_y;
+                console.log('Received message on ' + this.pc2bs.name + ': ', message);
             });
         },
 

@@ -1,44 +1,79 @@
 <template lang="">
-  <div class="flex flex-col items-center space-y-6">
-    <div class="grid grid-cols-2 gap-4">
+  <div
+    class="flex flex-col items-center space-y-10 p-6 bg-gray-50 rounded-lg shadow-lg"
+  >
+    <div
+      v-if="robotStore.connected"
+      class="w-40 h-12 bg-green-500 rounded-lg shadow-lg flex items-center justify-center transition-all duration-300 ease-in-out"
+    >
+      <span class="text-white text-2xl font-bold">Online</span>
+    </div>
+    <div
+      v-else
+      class="w-40 h-12 bg-red-500 rounded-lg shadow-lg flex items-center justify-center transition-all duration-300 ease-in-out"
+    >
+      <span class="text-white text-2xl font-bold">Offline</span>
+    </div>
+
+    <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-lg">
+      <h2 class="text-2xl font-semibold mb-6 text-center text-gray-700">
+        Robot Data
+      </h2>
+
+      <div class="space-y-6 text-gray-600">
+        <div class="flex flex-col">
+          <h3 class="font-bold text-xl text-gray-700">Posisi:</h3>
+          <p class="text-lg">X: <span class="font-medium">24</span></p>
+          <p class="text-lg">Y: <span class="font-medium">334</span></p>
+          <p class="text-lg">Θ (Theta): <span class="font-medium">34</span></p>
+        </div>
+
+        <div class="flex flex-col">
+          <h3 class="font-bold text-xl text-gray-700">Posisi Bola:</h3>
+          <p class="text-lg">X: <span class="font-medium">24</span></p>
+          <p class="text-lg">Y: <span class="font-medium">432</span></p>
+        </div>
+
+        <div class="flex flex-col">
+          <h3 class="font-bold text-xl text-gray-700">Kecepatan:</h3>
+          <p class="text-lg">X: <span class="font-medium">2</span></p>
+          <p class="text-lg">Y: <span class="font-medium">432</span></p>
+          <p class="text-lg">Θ (Theta): <span class="font-medium">2</span></p>
+        </div>
+
+        <div class="flex flex-col">
+          <h3 class="font-bold text-xl text-gray-700">Posisi Tujuan:</h3>
+          <p class="text-lg">X: <span class="font-medium">32</span></p>
+          <p class="text-lg">Y: <span class="font-medium">23</span></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-4 gap-6">
       <button
         v-for="num in [1, 2, 3, 4]"
         :key="num"
         @click="selectMessage(num)"
         :class="{
-          'w-16 h-16 text-white rounded-full shadow-lg transition-transform duration-300 focus:outline-none': true,
+          'w-24 h-14 text-white rounded-lg shadow-lg transition-transform duration-300 focus:outline-none': true,
           'bg-blue-500 hover:scale-105 hover:bg-blue-600 active:bg-blue-700':
             selectedMessage !== num,
           'bg-yellow-500': selectedMessage === num,
         }"
       >
-        {{ num }}
+        <span class="text-xl">{{ num }}</span>
       </button>
     </div>
 
     <button
       @click="sendMessage"
-      class="w-32 h-12 bg-green-500 text-white rounded-full shadow-lg transition-transform duration-300 hover:scale-105 hover:bg-green-600 focus:outline-none active:bg-green-700"
+      class="w-40 h-14 bg-green-500 text-white font-bold text-xl rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 hover:bg-green-600 focus:outline-none active:bg-green-700"
     >
-      SEND
+      Send Message
     </button>
-
-    <p class="text-lg font-semibold">Received message: {{ receivedMessage }}</p>
-
-    <div
-      v-if="robotStore.connected"
-      class="w-16 h-16 bg-green-500 rounded-full shadow-lg flex items-center justify-center transition-all duration-300 ease-in-out"
-    >
-      <span class="text-white text-lg">Online</span>
-    </div>
-    <div
-      v-else
-      class="w-16 h-16 bg-red-500 rounded-full shadow-lg flex items-center justify-center transition-all duration-300 ease-in-out"
-    >
-      <span class="text-white text-lg">Offline</span>
-    </div>
   </div>
 </template>
+
 <script>
 import { useRobotStore } from "../stores/store";
 

@@ -1,15 +1,17 @@
 <template>
-  <v-stage ref="stage" :config="stageSize" @click="moveTarget">
-    <v-layer ref="layer">
-      <v-image
-        :config="{
-          image: image,
-        }"
-      />
-      <v-image :config="RobotConfig" />
-      <v-image v-if="targetVisible" :config="TargetConfig" />
-    </v-layer>
-  </v-stage>
+  <div class="flex basis-2/3 border items-center justify-center">
+    <v-stage ref="stage" :config="stageSize" @click="moveTarget">
+      <v-layer ref="layer">
+        <v-image
+          :config="{
+            image: image,
+          }"
+        />
+        <v-image :config="RobotConfig" />
+        <v-image v-if="targetVisible" :config="TargetConfig" />
+      </v-layer>
+    </v-stage>
+  </div>
 </template>
 <script>
 import LAPANGAN from "@/assets/Lapangan.png";
@@ -69,6 +71,7 @@ export default {
         this.TargetConfig.x = 60;
         this.TargetConfig.y = 60;
         this.robotStore.updateKoordinat(60, 60);
+        // this.robotStore.sendMessage();
         return true;
       }
       return false;
@@ -123,6 +126,7 @@ export default {
       this.TargetConfig.y = e.evt.layerY;
 
       this.robotStore.updateKoordinat(this.TargetConfig.x, this.TargetConfig.y);
+      this.robotStore.sendMessage();
     },
   },
   mounted() {
