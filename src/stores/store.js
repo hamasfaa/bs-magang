@@ -52,14 +52,14 @@ export const useRobotStore = defineStore("robot", {
             this.pc2bs = new ROSLIB.Topic({
                 ros: this.ros,
                 name: "/pc2bs",
-                messageType: "pc2bs/Msg",
+                messageType: "IRIS24/pc2bs",
             });
 
             // buat publish
             this.bs2pc = new ROSLIB.Topic({
                 ros: this.ros,
                 name: "/bs2pc",
-                messageType: "tes/BS2PC",
+                messageType: "IRIS24/bs2pc",
             });
 
             this.pc2bs.subscribe((message) => {

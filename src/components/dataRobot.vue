@@ -23,28 +23,50 @@
       <div class="space-y-6 text-gray-600">
         <div class="flex flex-col">
           <h3 class="font-bold text-xl text-gray-700">Posisi:</h3>
-          <p class="text-lg">X: <span class="font-medium">24</span></p>
-          <p class="text-lg">Y: <span class="font-medium">334</span></p>
-          <p class="text-lg">Θ (Theta): <span class="font-medium">34</span></p>
+          <p class="text-lg">
+            X: <span class="font-medium">{{ robotStore.pc2bs.pos_x }}</span>
+          </p>
+          <p class="text-lg">
+            Y: <span class="font-medium">{{ robotStore.pc2bs.pos_y }}</span>
+          </p>
+          <p class="text-lg">
+            Θ (Theta):
+            <span class="font-medium">{{ robotStore.pc2bs.pos_theta }}</span>
+          </p>
         </div>
 
         <div class="flex flex-col">
           <h3 class="font-bold text-xl text-gray-700">Posisi Bola:</h3>
-          <p class="text-lg">X: <span class="font-medium">24</span></p>
-          <p class="text-lg">Y: <span class="font-medium">432</span></p>
+          <p class="text-lg">
+            X: <span class="font-medium">{{ robotStore.pc2bs.bola_x }}</span>
+          </p>
+          <p class="text-lg">
+            Y: <span class="font-medium">{{ robotStore.pc2bs.bola_y }}</span>
+          </p>
         </div>
 
         <div class="flex flex-col">
           <h3 class="font-bold text-xl text-gray-700">Kecepatan:</h3>
-          <p class="text-lg">X: <span class="font-medium">2</span></p>
-          <p class="text-lg">Y: <span class="font-medium">432</span></p>
-          <p class="text-lg">Θ (Theta): <span class="font-medium">2</span></p>
+          <p class="text-lg">
+            X: <span class="font-medium">{{ robotStore.pc2bs.v_x }}</span>
+          </p>
+          <p class="text-lg">
+            Y: <span class="font-medium">{{ robotStore.pc2bs.v_y }}</span>
+          </p>
+          <p class="text-lg">
+            Θ (Theta):
+            <span class="font-medium">{{ robotStore.pc2bs.v_theta }}</span>
+          </p>
         </div>
 
         <div class="flex flex-col">
           <h3 class="font-bold text-xl text-gray-700">Posisi Tujuan:</h3>
-          <p class="text-lg">X: <span class="font-medium">32</span></p>
-          <p class="text-lg">Y: <span class="font-medium">23</span></p>
+          <p class="text-lg">
+            X: <span class="font-medium">{{ robotStore.bs2pc.tujuan_x }}</span>
+          </p>
+          <p class="text-lg">
+            Y: <span class="font-medium">{{ robotStore.bs2pc.tujuan_y }}</span>
+          </p>
         </div>
       </div>
     </div>
