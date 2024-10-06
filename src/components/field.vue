@@ -68,9 +68,9 @@ export default {
   computed: {
     targetVisible() {
       if (this.robotStore.message === 3) {
-        this.TargetConfig.x = 60;
-        this.TargetConfig.y = 60;
-        this.robotStore.updateKoordinat(60, 60);
+        this.TargetConfig.x = 0;
+        this.TargetConfig.y = 0;
+        this.robotStore.updateKoordinat(0, 0);
         // this.robotStore.sendMessage();
         return true;
       }
@@ -133,25 +133,31 @@ export default {
     window.addEventListener("keydown", this.gerak);
 
     new Animation(() => {
-      switch (this.arah) {
-        case "up":
-          this.RobotConfig.y -= 1;
-          break;
-        case "left":
-          this.RobotConfig.x -= 1;
-          break;
-        case "down":
-          this.RobotConfig.y += 1;
-          break;
-        case "right":
-          this.RobotConfig.x += 1;
-          break;
-        case "rotateLeft":
-          this.RobotConfig.rotation -= 1;
-          break;
-        case "rotateRight":
-          this.RobotConfig.rotation += 1;
-          break;
+      if (this.robotStore.message === 1) {
+        this.RobotConfig.x += this.robotStore.pc2bs.v_x;
+        this.RobotConfig.y += this.robotStore.pc2bs.v_y;
+        this.RobotConfig.rotation += this.robotStore.pc2bs.v_theta;
+      } else {
+        switch (this.arah) {
+          case "up":
+            this.RobotConfig.y -= 1;
+            break;
+          case "left":
+            this.RobotConfig.x -= 1;
+            break;
+          case "down":
+            this.RobotConfig.y += 1;
+            break;
+          case "right":
+            this.RobotConfig.x += 1;
+            break;
+          case "rotateLeft":
+            this.RobotConfig.rotation -= 1;
+            break;
+          case "rotateRight":
+            this.RobotConfig.rotation += 1;
+            break;
+        }
       }
     }).start();
   },
