@@ -2,17 +2,33 @@
   <div
     class="flex flex-col items-center space-y-10 p-6 bg-gray-50 rounded-lg shadow-lg"
   >
-    <div
-      v-if="robotStore.connected"
-      class="w-40 h-12 bg-green-500 rounded-lg shadow-lg flex items-center justify-center transition-all duration-300 ease-in-out"
-    >
-      <span class="text-white text-2xl font-bold">Online</span>
-    </div>
-    <div
-      v-else
-      class="w-40 h-12 bg-red-500 rounded-lg shadow-lg flex items-center justify-center transition-all duration-300 ease-in-out"
-    >
-      <span class="text-white text-2xl font-bold">Offline</span>
+    <div class="flex space-x-6 items-center">
+      <div
+        v-if="robotStore.connected"
+        class="w-40 h-12 bg-green-600 rounded-lg shadow-lg flex items-center justify-center transition-all duration-300 ease-in-out"
+      >
+        <span class="text-white text-2xl font-bold">Online</span>
+      </div>
+      <div
+        v-else
+        class="w-40 h-12 bg-red-600 rounded-lg shadow-lg flex items-center justify-center transition-all duration-300 ease-in-out"
+      >
+        <span class="text-white text-2xl font-bold">Offline</span>
+      </div>
+
+      <div
+        class="w-40 h-12 bg-gray-200 rounded-lg shadow-lg flex items-center justify-center transition-all duration-300 ease-in-out"
+      >
+        <span class="text-2xl font-bold">{{ robotStore.message }}</span>
+      </div>
+
+      <div
+        class="w-40 h-12 bg-orange-600 hover:scale-105 hover:bg-orange-700 active:bg-orange-800 rounded-lg shadow-lg flex items-center justify-center transition-all duration-300 ease-in-out"
+      >
+        <span class="text-white text-2xl font-bold" @click="refreshPage">
+          Refresh
+        </span>
+      </div>
     </div>
 
     <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-lg">
@@ -78,7 +94,7 @@
         @click="selectMessage(num)"
         :class="{
           'w-24 h-14 text-white rounded-lg shadow-lg transition-transform duration-300 focus:outline-none': true,
-          'bg-blue-500 hover:scale-105 hover:bg-blue-600 active:bg-blue-700':
+          'bg-blue-600 hover:scale-105 hover:bg-blue-700 active:bg-blue-800':
             selectedMessage !== num,
           'bg-yellow-500': selectedMessage === num,
         }"
@@ -89,7 +105,7 @@
 
     <button
       @click="sendMessage"
-      class="w-40 h-14 bg-green-500 text-white font-bold text-xl rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 hover:bg-green-600 focus:outline-none active:bg-green-700"
+      class="w-40 h-14 bg-emerald-600 text-white font-bold text-xl rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 hover:bg-emerald-700 focus:outline-none active:bg-emerald-800"
     >
       Send Message
     </button>
@@ -130,6 +146,9 @@ export default {
         this.robotStore.updateMessage(this.selectedMessage);
         this.robotStore.sendMessage();
       }
+    },
+    refreshPage() {
+      location.reload();
     },
   },
 };
