@@ -9,14 +9,17 @@
         />
         <v-image :config="RobotConfig" />
         <v-image v-if="targetVisible" :config="TargetConfig" />
+        <v-image v-if="ballVisible" :config="BallConfig" />
       </v-layer>
     </v-stage>
   </div>
 </template>
+
 <script>
 import LAPANGAN from "@/assets/Lapangan.png";
 import ROBOT from "@/assets/Model_Robot/blue.png";
 import TARGET from "@/assets/red_dot-1.png";
+import BALL from "@/assets/Model_Robot/bola_biru.png";
 import { Animation } from "konva";
 import { useRobotStore } from "../stores/store";
 
@@ -36,6 +39,7 @@ export default {
       LAPANGAN,
       ROBOT,
       TARGET,
+      BALL,
       stageSize: {
         width: panjangLapangan,
         height: tinggiLapangan,
@@ -63,18 +67,25 @@ export default {
           y: 25,
         },
       },
+      BallConfig: {
+        image: null,
+        x: 100,
+        y: 100,
+        width: 25,
+        height: 25,
+        offset: {
+          x: 12.5,
+          y: 12.5,
+        },
+      },
     };
   },
   computed: {
+    ballVisible() {
+      return [1, 2, 4].includes(this.robotStore.message);
+    },
     targetVisible() {
-      if (this.robotStore.message === 3) {
-        this.TargetConfig.x = 0;
-        this.TargetConfig.y = 0;
-        this.robotStore.updateKoordinat(0, 0);
-        // this.robotStore.sendMessage();
-        return true;
-      }
-      return false;
+      return this.robotStore.message === 3;
     },
   },
   created() {
@@ -88,9 +99,15 @@ export default {
     robotImage.src = ROBOT;
     this.RobotConfig.image = robotImage;
 
+    console.log(this.RobotConfig);
+
     const targetImage = new window.Image();
     targetImage.src = TARGET;
     this.TargetConfig.image = targetImage;
+
+    const ballImage = new window.Image();
+    ballImage.src = BALL;
+    this.BallConfig.image = ballImage;
   },
   methods: {
     gerak(e) {

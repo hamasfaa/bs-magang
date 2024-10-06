@@ -137,6 +137,11 @@ export default {
       return this.robotStore.connected;
     },
   },
+  // watch: {
+  //   "robotStore.message": function (newVal, oldVal) {
+  //     this.robotStore.resetDataRobot();
+  //   },
+  // },
   methods: {
     selectMessage(message) {
       this.selectedMessage = message;

@@ -71,7 +71,6 @@ export const useRobotStore = defineStore("robot", {
                 this.pc2bs.v_theta = message.v_theta;
                 this.pc2bs.bola_x = message.bola_x;
                 this.pc2bs.bola_y = message.bola_y;
-                console.log('Received message on ' + this.pc2bs.name + ': ', message);
             });
         },
 
@@ -86,7 +85,6 @@ export const useRobotStore = defineStore("robot", {
                     tujuan_y: this.bs2pc.tujuan_y,
                 });
                 this.bs2pc.publish(message);
-                console.log('Sending message on ' + this.bs2pc.name + ': ' + "STATUS" + message.status + "KOORDINAT" + message.tujuan_x + "," + message.tujuan_y);
             }
         },
 
