@@ -9,7 +9,10 @@
         />
         <v-image :config="RobotConfig" />
         <v-image v-if="targetVisible" :config="TargetConfig" />
-        <v-image v-if="ballVisible" :config="BallConfig" />
+        <v-image
+          v-if="ballVisible && !ballAndRobotOverlap"
+          :config="BallConfig"
+        />
       </v-layer>
     </v-stage>
   </div>
@@ -20,6 +23,7 @@ import LAPANGAN from "@/assets/Lapangan.png";
 import ROBOT from "@/assets/Model_Robot/blue.png";
 import TARGET from "@/assets/red_dot-1.png";
 import BALL from "@/assets/Model_Robot/bola_biru.png";
+import BALLROBOT from "@/assets/Model_Robot/blue1_ball.png";
 import { Animation } from "konva";
 import { useRobotStore } from "../stores/store";
 
@@ -40,6 +44,7 @@ export default {
       ROBOT,
       TARGET,
       BALL,
+      BALLROBOT,
       stageSize: {
         width: panjangLapangan,
         height: tinggiLapangan,
@@ -87,6 +92,27 @@ export default {
     targetVisible() {
       return this.robotStore.message === 3;
     },
+    robotImage() {
+      if (this.ballAndRobotOverlap) {
+        return this.BALLROBOT;
+      }
+      return this.ROBOT;
+    },
+    ballAndRobotOverlap() {
+      return (
+        this.RobotConfig.x === this.BallConfig.x &&
+        this.RobotConfig.y === this.BallConfig.y
+      );
+    },
+  },
+  watch: {
+    robotImage(newImage) {
+      const robotImage = new window.Image();
+      robotImage.src = newImage;
+      robotImage.onload = () => {
+        this.RobotConfig.image = robotImage;
+      };
+    },
   },
   created() {
     const image = new window.Image();
@@ -96,10 +122,10 @@ export default {
     };
 
     const robotImage = new window.Image();
-    robotImage.src = ROBOT;
-    this.RobotConfig.image = robotImage;
-
-    console.log(this.RobotConfig);
+    robotImage.src = this.robotImage;
+    robotImage.onload = () => {
+      this.RobotConfig.image = robotImage;
+    };
 
     const targetImage = new window.Image();
     targetImage.src = TARGET;
@@ -107,7 +133,9 @@ export default {
 
     const ballImage = new window.Image();
     ballImage.src = BALL;
-    this.BallConfig.image = ballImage;
+    ballImage.onload = () => {
+      this.BallConfig.image = ballImage;
+    };
   },
   methods: {
     gerak(e) {
@@ -151,9 +179,11 @@ export default {
 
     new Animation(() => {
       if (this.robotStore.message === 1) {
-        this.RobotConfig.x += this.robotStore.pc2bs.v_x;
-        this.RobotConfig.y += this.robotStore.pc2bs.v_y;
-        this.RobotConfig.rotation += this.robotStore.pc2bs.v_theta;
+        this.RobotConfig.x = this.robotStore.pc2bs.pos_x;
+        this.RobotConfig.y = this.robotStore.pc2bs.pos_y;
+        this.RobotConfig.rotation = this.robotStore.pc2bs.pos_theta;
+        this.BallConfig.x = this.robotStore.pc2bs.bola_x;
+        this.BallConfig.y = this.robotStore.pc2bs.bola_y;
       } else {
         switch (this.arah) {
           case "up":
