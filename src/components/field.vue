@@ -167,8 +167,8 @@ export default {
       }
     },
     moveTarget(e) {
-      this.TargetConfig.x = e.evt.layerX;
-      this.TargetConfig.y = e.evt.layerY;
+      this.TargetConfig.x = e.evt.layerX - 60;
+      this.TargetConfig.y = e.evt.layerY - 60;
 
       this.robotStore.updateKoordinat(this.TargetConfig.x, this.TargetConfig.y);
       this.robotStore.sendMessage();
@@ -178,7 +178,7 @@ export default {
     window.addEventListener("keydown", this.gerak);
 
     new Animation(() => {
-      if (this.robotStore.message === 1) {
+      if (this.robotStore.message !== 0) {
         this.RobotConfig.x = this.robotStore.pc2bs.pos_x;
         this.RobotConfig.y = this.robotStore.pc2bs.pos_y;
         this.RobotConfig.rotation = this.robotStore.pc2bs.pos_theta;
