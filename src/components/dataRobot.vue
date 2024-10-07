@@ -146,6 +146,9 @@ export default {
   methods: {
     selectMessage(message) {
       this.selectedMessage = message;
+      if ([1, 2, 4].includes(message)) {
+        this.robotStore.updateKoordinat(0, 0);
+      }
     },
     sendMessage() {
       if (this.selectedMessage !== null) {

@@ -175,7 +175,7 @@ export default {
         this.TargetConfig.x - 58,
         this.TargetConfig.y - 58
       );
-      this.robotStore.sendMessage();
+      // this.robotStore.sendMessage();
     },
   },
   mounted() {
