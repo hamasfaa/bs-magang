@@ -53,8 +53,8 @@ export default {
       arah: null,
       RobotConfig: {
         image: null,
-        x: 60,
-        y: 60,
+        x: 58,
+        y: 58,
         rotation: 0,
         offset: {
           x: 40,
@@ -63,8 +63,8 @@ export default {
       },
       TargetConfig: {
         image: null,
-        x: 60,
-        y: 60,
+        x: 58,
+        y: 58,
         width: 50,
         height: 50,
         offset: {
@@ -167,10 +167,14 @@ export default {
       }
     },
     moveTarget(e) {
-      this.TargetConfig.x = e.evt.layerX - 60;
-      this.TargetConfig.y = e.evt.layerY - 60;
+      if (this.robotStore.message !== 3) return;
+      this.TargetConfig.x = e.evt.layerX;
+      this.TargetConfig.y = e.evt.layerY;
 
-      this.robotStore.updateKoordinat(this.TargetConfig.x, this.TargetConfig.y);
+      this.robotStore.updateKoordinat(
+        this.TargetConfig.x - 58,
+        this.TargetConfig.y - 58
+      );
       this.robotStore.sendMessage();
     },
   },

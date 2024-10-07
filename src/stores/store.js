@@ -63,22 +63,22 @@ export const useRobotStore = defineStore("robot", {
             });
 
             this.pc2bs.subscribe((message) => {
-                this.pc2bs.pos_x = message.pos_x + 60;
-                this.pc2bs.pos_y = message.pos_y + 60;
+                this.pc2bs.pos_x = message.pos_x + 58;
+                this.pc2bs.pos_y = message.pos_y + 58;
                 this.pc2bs.pos_theta = message.pos_theta * -1;
                 this.pc2bs.v_x = message.v_x;
                 this.pc2bs.v_y = message.v_y;
                 this.pc2bs.v_theta = message.v_theta;
-                this.pc2bs.bola_x = message.bola_x + 60
-                this.pc2bs.bola_y = message.bola_y + 60
+                this.pc2bs.bola_x = message.bola_x + 58
+                this.pc2bs.bola_y = message.bola_y + 58
             });
         },
 
         sendMessage() {
             if (this.bs2pc) {
                 this.bs2pc.status = this.message;
-                this.bs2pc.tujuan_x = this.x + 60;
-                this.bs2pc.tujuan_y = this.y + 60;
+                this.bs2pc.tujuan_x = this.x;
+                this.bs2pc.tujuan_y = this.y;
                 const message = new ROSLIB.Message({
                     status: this.bs2pc.status,
                     tujuan_x: this.bs2pc.tujuan_x,
@@ -95,6 +95,17 @@ export const useRobotStore = defineStore("robot", {
         updateKoordinat(newX, newY) {
             this.x = newX
             this.y = newY
-        }
+        },
+
+        resetDataRobot() {
+            this.dataRobot.pos_x = 58;
+            this.dataRobot.pos_y = 58;
+            this.dataRobot.pos_theta = 0;
+            this.dataRobot.v_x = 0;
+            this.dataRobot.v_y = 0;
+            this.dataRobot.v_theta = 0;
+            this.dataRobot.bola_x = 58;
+            this.dataRobot.bola_y = 58;
+        },
     },
 });

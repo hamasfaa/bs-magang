@@ -40,24 +40,30 @@
         <div class="flex flex-col">
           <h3 class="font-bold text-xl text-gray-700">Posisi:</h3>
           <p class="text-lg">
-            X: <span class="font-medium">{{ robotStore.pc2bs.pos_x }}</span>
+            X:
+            <span class="font-medium">{{ robotStore.pc2bs.pos_x - 58 }}</span>
           </p>
           <p class="text-lg">
-            Y: <span class="font-medium">{{ robotStore.pc2bs.pos_y }}</span>
+            Y:
+            <span class="font-medium">{{ robotStore.pc2bs.pos_y - 58 }}</span>
           </p>
           <p class="text-lg">
             Θ (Theta):
-            <span class="font-medium">{{ robotStore.pc2bs.pos_theta }}</span>
+            <span class="font-medium">{{
+              robotStore.pc2bs.pos_theta * -1
+            }}</span>
           </p>
         </div>
 
         <div class="flex flex-col">
           <h3 class="font-bold text-xl text-gray-700">Posisi Bola:</h3>
           <p class="text-lg">
-            X: <span class="font-medium">{{ robotStore.pc2bs.bola_x }}</span>
+            X:
+            <span class="font-medium">{{ robotStore.pc2bs.bola_x - 58 }}</span>
           </p>
           <p class="text-lg">
-            Y: <span class="font-medium">{{ robotStore.pc2bs.bola_y }}</span>
+            Y:
+            <span class="font-medium">{{ robotStore.pc2bs.bola_y - 58 }}</span>
           </p>
         </div>
 
@@ -137,11 +143,6 @@ export default {
       return this.robotStore.connected;
     },
   },
-  // watch: {
-  //   "robotStore.message": function (newVal, oldVal) {
-  //     this.robotStore.resetDataRobot();
-  //   },
-  // },
   methods: {
     selectMessage(message) {
       this.selectedMessage = message;
