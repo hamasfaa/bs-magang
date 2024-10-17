@@ -98,14 +98,14 @@ export const useRobotStore = defineStore("robot", {
         },
 
         resetDataRobot() {
-            this.dataRobot.pos_x = 58;
-            this.dataRobot.pos_y = 58;
-            this.dataRobot.pos_theta = 0;
-            this.dataRobot.v_x = 0;
-            this.dataRobot.v_y = 0;
-            this.dataRobot.v_theta = 0;
-            this.dataRobot.bola_x = 58;
-            this.dataRobot.bola_y = 58;
+            this.pc2bs.pos_x = 58;
+            this.pc2bs.pos_y = 58;
+            this.pc2bs.pos_theta = 0;
+            this.pc2bs.v_x = 0;
+            this.pc2bs.v_y = 0;
+            this.pc2bs.v_theta = 0;
+            this.pc2bs.bola_x = 58;
+            this.pc2bs.bola_y = 58;
         },
     },
 });

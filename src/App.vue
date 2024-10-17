@@ -16,6 +16,7 @@ export default {
 
   created() {
     this.robotStore.initializeROS();
+    this.robotStore.resetDataRobot();
   },
 };
 </script>
