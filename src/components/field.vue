@@ -29,6 +29,7 @@ import { useRobotStore } from "../stores/store";
 
 let panjangLapangan = 1016;
 let tinggiLapangan = 716;
+//g
 
 export default {
   setup() {
