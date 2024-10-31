@@ -184,11 +184,11 @@ export default {
 
     new Animation(() => {
       if (this.robotStore.message !== 0) {
-        this.RobotConfig.x = this.robotStore.pc2bs.pos_x;
-        this.RobotConfig.y = this.robotStore.pc2bs.pos_y;
-        this.RobotConfig.rotation = this.robotStore.pc2bs.pos_theta;
-        this.BallConfig.x = this.robotStore.pc2bs.bola_x;
-        this.BallConfig.y = this.robotStore.pc2bs.bola_y;
+        this.RobotConfig.x = this.robotStore.robot.pos_x + 58;
+        this.RobotConfig.y = this.robotStore.robot.pos_y + 58;
+        this.RobotConfig.rotation = this.robotStore.robot.pos_theta * -1;
+        this.BallConfig.x = this.robotStore.pc2bs.bola_x + 58;
+        this.BallConfig.y = this.robotStore.pc2bs.bola_y + 58;
       } else {
         switch (this.arah) {
           case "up":
