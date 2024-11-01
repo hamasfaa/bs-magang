@@ -51,10 +51,6 @@
             Θ (Theta):
             <span class="font-medium">{{ robotStore.robot.pos_theta }}</span>
           </p>
-          <p class="text-lg">
-            a (alpha):
-            <span class="font-medium">{{ robotStore.alpha }}</span>
-          </p>
         </div>
 
         <div class="flex flex-col">
